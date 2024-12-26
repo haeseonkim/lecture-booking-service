@@ -19,6 +19,9 @@ public class Lecture {
     private String lectureName;
 
     @Column(nullable = false)
+    private String lecturer;
+
+    @Column(nullable = false)
     private int currentEnrollment = 0;
 
     @Column(nullable = false)
