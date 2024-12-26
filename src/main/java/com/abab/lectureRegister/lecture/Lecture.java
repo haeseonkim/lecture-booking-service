@@ -22,7 +22,7 @@ public class Lecture {
     private int currentEnrollment = 0;
 
     @Column(nullable = false)
-    private LocalDateTime startTime;
+    private LocalDateTime startDateTime;
 
     public void upCurrentEnrollment() {
         currentEnrollment++;

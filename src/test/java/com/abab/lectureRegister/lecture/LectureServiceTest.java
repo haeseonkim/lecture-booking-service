@@ -34,7 +34,7 @@ public class LectureServiceTest {
         Lecture lecture = Lecture.builder()
                 .lectureId(1L)
                 .lectureName("Java 핵심 파헤치기")
-                .startTime(targetDate)
+                .startDateTime(targetDate)
                 .currentEnrollment(20)
                 .build();
         when(lectureRepository.findByStartTimeAndCurrentEnrollmentLessThan(targetDate, 30))
@@ -69,7 +69,7 @@ public class LectureServiceTest {
             Lecture lecture = Lecture.builder()
                     .lectureId(1L)
                     .lectureName("Java 핵심 파헤치기")
-                    .startTime(targetDate)
+                    .startDateTime(targetDate)
                     .currentEnrollment(30)
                     .build();
 
