@@ -1,5 +1,6 @@
-package com.abab.lecture;
+package com.abab.lectureRegister.registration;
 
+import com.abab.lectureRegister.lecture.Lecture;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

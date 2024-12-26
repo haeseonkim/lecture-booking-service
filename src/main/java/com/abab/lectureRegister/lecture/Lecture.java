@@ -1,4 +1,4 @@
-package com.abab.lecture;
+package com.abab.lectureRegister.lecture;
 
 import jakarta.persistence.*;
 
@@ -9,6 +9,9 @@ public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lectureId;
+
+    @Column(nullable = false)
+    private String lectureName;
 
     @Column(nullable = false)
     private int currentEnrollment = 0;
