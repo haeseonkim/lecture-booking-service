@@ -1,6 +1,9 @@
 package com.abab.lectureRegister.lecture;
 
+import com.abab.lectureRegister.exception.LectureFullException;
+import com.abab.lectureRegister.exception.LectureNotFoundException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,8 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,5 +47,29 @@ public class LectureServiceTest {
         assertEquals(1, result.size());
         assertEquals(1L, result.get(0).getLectureId());
         assertEquals(20, result.get(0).getCurrentEnrollment());
+    }
+
+    @Nested
+    @DisplayName("특강 서비스 테스트")
+    class LectureRegisterTest {
+        @Test
+        void 특강_정보_조회_실패_LectureNotFoundException(){
+            // given
+            Long lectureId = 1L;
+            when(lectureRepository.findById(lectureId)).thenReturn(Optional.empty());
+
+            // when & then
+            assertThrows(LectureNotFoundException.class, () -> lectureService.getLectureById(lectureId));
+        }
+
+        @Test
+        void 특강_신청_실패_현재_신청_인원_29_초과시_LectureFullException(){
+            // given
+            Long lectureId = 1L;
+            when(lectureRepository.existsByLectureIdAndCurrentEnrollmentGreaterThanEqual(lectureId, 30)).thenReturn(Boolean.TRUE);
+
+            // when & then
+            assertThrows(LectureFullException.class, () -> lectureService.isPossibleToRegister(lectureId));
+        }
     }
 }
