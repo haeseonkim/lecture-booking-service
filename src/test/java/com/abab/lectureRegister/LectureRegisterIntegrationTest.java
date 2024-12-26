@@ -1,22 +1,21 @@
 package com.abab.lectureRegister;
 
+import com.abab.lectureRegister.exception.LectureAlreadyRegisteredException;
 import com.abab.lectureRegister.lecture.Lecture;
 import com.abab.lectureRegister.lecture.LectureRepository;
+import com.abab.lectureRegister.registration.Registration;
+import com.abab.lectureRegister.registration.RegistrationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,17 +26,13 @@ public class LectureRegisterIntegrationTest {
     private LectureRegisterServiceFacade lectureRegisterServiceFacade;
 
     @Autowired
-    private WebApplicationContext context;
-
-    @Autowired
     private LectureRepository lectureRepository;
 
-    private MockMvc mockMvc;
+    @Autowired
+    private RegistrationRepository registrationRepository;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-
         // 테스트용 데이터 생성
         Lecture lecture = Lecture.builder()
                 .lectureName("테스트 특강")
@@ -111,6 +106,75 @@ public class LectureRegisterIntegrationTest {
         Lecture updatedLecture = lectureRepository.findById(LECTURE_ID).orElseThrow();
         assertEquals(30, updatedLecture.getCurrentEnrollment()); // 최대 30명만 등록되어야 함
         assertEquals(30, successCount.get()); // 성공 건수도 30이어야 함
+
+        executorService.shutdown();
+    }
+
+    @Test
+    void 한명의_유저가_같은_특강_5번_신청시_1번만_성공() throws Exception {
+        // given
+        final Long USER_ID = 1L;
+        final int REQUEST_COUNT = 5;
+
+        // 테스트용 특강 데이터 생성
+        Lecture lecture = Lecture.builder()
+                .lectureName("테스트 특강")
+                .startDateTime(LocalDateTime.now().plusDays(1))
+                .currentEnrollment(0)
+                .lecturer("강사")
+                .build();
+        lectureRepository.save(lecture);
+        final Long LECTURE_ID = lecture.getLectureId();
+
+        // 동시 요청 처리를 위한 설정
+        ExecutorService executorService = Executors.newFixedThreadPool(REQUEST_COUNT);
+        CountDownLatch latch = new CountDownLatch(1);
+        AtomicInteger successCount = new AtomicInteger();
+
+        // when
+        List<Future<Boolean>> futures = new ArrayList<>();
+
+        // 동일한 유저로 5번 요청
+        for (int i = 0; i < REQUEST_COUNT; i++) {
+            Future<Boolean> future = executorService.submit(() -> {
+                try {
+                    latch.await(); // 모든 쓰레드가 준비될 때까지 대기
+                    try {
+                        lectureRegisterServiceFacade.registerLecture(USER_ID, LECTURE_ID);
+                        successCount.incrementAndGet(); // 성공 시 카운트 증가
+                        return true;
+                    } catch (LectureAlreadyRegisteredException e) {
+                        return false;
+                    }
+                } catch (InterruptedException e) {
+                    return false;
+                }
+            });
+            futures.add(future);
+        }
+
+        latch.countDown(); // 모든 쓰레드 동시 실행
+
+        // then
+        // 모든 Future의 결과 수집
+        List<Boolean> results = futures.stream()
+                .map(future -> {
+                    try {
+                        return future.get(10, TimeUnit.SECONDS);
+                    } catch (Exception e) {
+                        return false;
+                    }
+                })
+                .toList();
+
+        // 검증
+        Lecture updatedLecture = lectureRepository.findById(LECTURE_ID).orElseThrow();
+        assertEquals(1, updatedLecture.getCurrentEnrollment()); // 한 번만 등록되어야 함
+        assertEquals(1, successCount.get()); // 성공 건수도 1이어야 함
+
+        // DB에 실제로 한 건만 저장되었는지 확인
+        List<Registration> registrations = registrationRepository.findAllByUserIdAndLecture(USER_ID, lecture);
+        assertEquals(1, registrations.size());
 
         executorService.shutdown();
     }

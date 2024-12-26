@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
     Optional<Registration> findByUserIdAndLecture(Long userId, Lecture lecture);
 
+    List<Registration> findAllByUserIdAndLecture(Long userId, Lecture lecture);
+
     @Query("select r.lecture from Registration r where r.userId = :userId")
     List<Lecture> findLecturesByUserId(@Param("userId") Long userId);
 }
