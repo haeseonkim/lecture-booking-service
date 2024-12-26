@@ -23,4 +23,8 @@ public class Lecture {
 
     @Column(nullable = false)
     private LocalDateTime startTime;
+
+    public void upCurrentEnrollment() {
+        currentEnrollment++;
+    }
 }
