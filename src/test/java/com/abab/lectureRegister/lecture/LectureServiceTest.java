@@ -37,11 +37,11 @@ public class LectureServiceTest {
                 .startDateTime(targetDate)
                 .currentEnrollment(20)
                 .build();
-        when(lectureRepository.findByStartTimeAndCurrentEnrollmentLessThan(targetDate, 30))
+        when(lectureRepository.findByStartDateTimeAndCurrentEnrollmentLessThan(targetDate, 30))
                 .thenReturn(List.of(lecture));
 
         // when
-        List<Lecture> result = lectureRepository.findByStartTimeAndCurrentEnrollmentLessThan(targetDate, 30);
+        List<Lecture> result = lectureService.getAllLectures(targetDate);
 
         // then
         assertEquals(1, result.size());
