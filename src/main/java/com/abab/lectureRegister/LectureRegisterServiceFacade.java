@@ -4,6 +4,7 @@ import com.abab.lectureRegister.lecture.Lecture;
 import com.abab.lectureRegister.registration.Registration;
 import com.abab.lectureRegister.registration.RegistrationService;
 import com.abab.lectureRegister.lecture.LectureService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +27,13 @@ public class LectureRegisterServiceFacade {
     // TODO: 2) 특강 신청
     // - 실패: 이미 신청한 특강이면 실패 Registration
     // - 실패: 현재 신청 인원(currentEnrollment)가 30 이상이면 실패 Lecture
+    @Transactional
     public Registration registerLecture(Long userId, Long lectureId) {
         // Lecture를 LectureService에서 조회
         Lecture lecture = lectureService.getLectureById(lectureId);
 
         // 현재 신청 인원이 30 미만이고
-        lectureService.isPossibleToRegister(lectureId);
+        lectureService.isPossibleToRegister(lecture);
 
         // 이미 신청한 특강이 아니면
         registrationService.isNotRegisteredYet(userId, lecture);

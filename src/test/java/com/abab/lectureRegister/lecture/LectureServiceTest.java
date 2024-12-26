@@ -63,13 +63,18 @@ public class LectureServiceTest {
         }
 
         @Test
-        void 특강_신청_실패_현재_신청_인원_29_초과시_LectureFullException(){
+        void 특강_신청_실패_현재_신청_인원_30_이상이면_LectureFullException(){
             // given
-            Long lectureId = 1L;
-            when(lectureRepository.existsByLectureIdAndCurrentEnrollmentGreaterThanEqual(lectureId, 30)).thenReturn(Boolean.TRUE);
+            LocalDateTime targetDate = LocalDateTime.of(2024, 12, 1, 10, 0);
+            Lecture lecture = Lecture.builder()
+                    .lectureId(1L)
+                    .lectureName("Java 핵심 파헤치기")
+                    .startTime(targetDate)
+                    .currentEnrollment(30)
+                    .build();
 
             // when & then
-            assertThrows(LectureFullException.class, () -> lectureService.isPossibleToRegister(lectureId));
+            assertThrows(LectureFullException.class, () -> lectureService.isPossibleToRegister(lecture));
         }
     }
 }

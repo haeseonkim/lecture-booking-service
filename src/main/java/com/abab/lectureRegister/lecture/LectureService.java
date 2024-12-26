@@ -24,9 +24,9 @@ public class LectureService {
                 .orElseThrow(() -> new LectureNotFoundException(lectureId));
     }
 
-    public void isPossibleToRegister(Long lectureId) {
-        if(lectureRepository.existsByLectureIdAndCurrentEnrollmentGreaterThanEqual(lectureId, MAX_ENROLLMENT)){
-            throw new LectureFullException(lectureId);
+    public void isPossibleToRegister(Lecture lecture) {
+        if(lecture.getCurrentEnrollment() >= 30){
+            throw new LectureFullException(lecture.getLectureId());
         }
     }
 
