@@ -1,0 +1,19 @@
+#application-local
+server:
+  port: 8080
+
+spring:
+  application:
+    name: lecture-booking-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/lecture_booking
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
