@@ -1,10 +1,15 @@
 package com.abab.lectureRegister.lecture;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
