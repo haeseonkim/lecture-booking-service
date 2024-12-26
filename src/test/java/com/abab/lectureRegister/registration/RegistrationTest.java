@@ -29,7 +29,7 @@ public class RegistrationTest {
         Lecture lecture = Lecture.builder()
                 .lectureId(1L)
                 .lectureName("Java 핵심 파헤치기")
-                .startTime(targetDate)
+                .startDateTime(targetDate)
                 .currentEnrollment(20)
                 .build();
         Registration registration = Registration.builder()

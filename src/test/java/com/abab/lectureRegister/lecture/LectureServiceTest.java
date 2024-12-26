@@ -56,7 +56,7 @@ public class LectureServiceTest {
         void 특강_정보_조회_실패_LectureNotFoundException(){
             // given
             Long lectureId = 1L;
-            when(lectureRepository.findById(lectureId)).thenReturn(Optional.empty());
+            when(lectureRepository.findByIdWithPessimisticLock(lectureId)).thenReturn(Optional.empty());
 
             // when & then
             assertThrows(LectureNotFoundException.class, () -> lectureService.getLectureByIdWithLock(lectureId));

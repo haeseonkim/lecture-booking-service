@@ -16,7 +16,7 @@ public class LectureService {
     private static final int MAX_ENROLLMENT = 30;
 
     public List<Lecture> getAllLectures(LocalDateTime startDateTime) {
-        return lectureRepository.findByStartTimeAndCurrentEnrollmentLessThan(startDateTime, MAX_ENROLLMENT);
+        return lectureRepository.findByStartDateTimeAndCurrentEnrollmentLessThan(startDateTime, MAX_ENROLLMENT);
     }
 
     public Lecture getLectureByIdWithLock(Long lectureId) {

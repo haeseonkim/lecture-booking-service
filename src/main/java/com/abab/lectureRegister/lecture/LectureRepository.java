@@ -15,5 +15,5 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
     @Query("SELECT l FROM Lecture l WHERE l.lectureId = :lectureId")
     Optional<Lecture> findByIdWithPessimisticLock(@Param("lectureId") Long lectureId);
 
-    List<Lecture> findByStartTimeAndCurrentEnrollmentLessThan(LocalDateTime startTime, int currentEnrollment);
+    List<Lecture> findByStartDateTimeAndCurrentEnrollmentLessThan(LocalDateTime startTime, int currentEnrollment);
 }
