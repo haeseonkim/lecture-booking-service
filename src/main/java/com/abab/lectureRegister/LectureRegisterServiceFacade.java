@@ -29,8 +29,8 @@ public class LectureRegisterServiceFacade {
     // - 실패: 현재 신청 인원(currentEnrollment)가 30 이상이면 실패 Lecture
     @Transactional
     public Registration registerLecture(Long userId, Long lectureId) {
-        // Lecture를 LectureService에서 조회
-        Lecture lecture = lectureService.getLectureById(lectureId);
+        // Lecture를 LectureService에서 조회 (락 획득)
+        Lecture lecture = lectureService.getLectureByIdWithLock(lectureId);
 
         // 현재 신청 인원이 30 미만이고
         lectureService.isPossibleToRegister(lecture);

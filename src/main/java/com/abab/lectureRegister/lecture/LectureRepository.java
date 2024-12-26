@@ -1,11 +1,19 @@
 package com.abab.lectureRegister.lecture;
 
+import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT l FROM Lecture l WHERE l.lectureId = :lectureId")
+    Optional<Lecture> findByIdWithPessimisticLock(@Param("lectureId") Long lectureId);
+
     List<Lecture> findByStartTimeAndCurrentEnrollmentLessThan(LocalDateTime startTime, int currentEnrollment);
-    boolean existsByLectureIdAndCurrentEnrollmentGreaterThanEqual(Long lectureId, int currentEnrollment);
 }

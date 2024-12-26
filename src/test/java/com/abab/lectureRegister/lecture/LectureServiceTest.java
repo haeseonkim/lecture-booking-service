@@ -59,7 +59,7 @@ public class LectureServiceTest {
             when(lectureRepository.findById(lectureId)).thenReturn(Optional.empty());
 
             // when & then
-            assertThrows(LectureNotFoundException.class, () -> lectureService.getLectureById(lectureId));
+            assertThrows(LectureNotFoundException.class, () -> lectureService.getLectureByIdWithLock(lectureId));
         }
 
         @Test

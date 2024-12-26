@@ -19,8 +19,8 @@ public class LectureService {
         return lectureRepository.findByStartTimeAndCurrentEnrollmentLessThan(startDateTime, MAX_ENROLLMENT);
     }
 
-    public Lecture getLectureById(Long lectureId) {
-        return lectureRepository.findById(lectureId)
+    public Lecture getLectureByIdWithLock(Long lectureId) {
+        return lectureRepository.findByIdWithPessimisticLock(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException(lectureId));
     }
 
