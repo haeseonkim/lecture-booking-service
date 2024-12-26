@@ -1,6 +1,7 @@
 package com.abab.lectureRegister.lecture;
 
 import com.abab.lectureRegister.exception.LectureFullException;
+import com.abab.lectureRegister.exception.LectureNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class LectureService {
 
     public Lecture getLectureById(Long lectureId) {
         return lectureRepository.findById(lectureId)
-                .orElseThrow(() -> new IllegalArgumentException("Lecture not found"));
+                .orElseThrow(() -> new LectureNotFoundException(lectureId));
     }
 
     public void isPossibleToRegister(Long lectureId) {

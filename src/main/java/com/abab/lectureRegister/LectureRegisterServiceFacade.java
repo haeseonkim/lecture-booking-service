@@ -1,7 +1,6 @@
 package com.abab.lectureRegister;
 
 import com.abab.lectureRegister.lecture.Lecture;
-import com.abab.lectureRegister.lecture.LectureRepository;
 import com.abab.lectureRegister.registration.Registration;
 import com.abab.lectureRegister.registration.RegistrationService;
 import com.abab.lectureRegister.lecture.LectureService;

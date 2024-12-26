@@ -1,5 +1,6 @@
 package com.abab.lectureRegister.registration;
 
+import com.abab.lectureRegister.exception.LectureAlreadyRegisteredException;
 import com.abab.lectureRegister.lecture.Lecture;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,8 @@ public class RegistrationService {
 
     public void isNotRegisteredYet(Long userId, Lecture lecture) {
         Optional<Registration> isRegistered = registrationRepository.findByUserIdAndLecture(userId, lecture);
-        if (isRegistered.isEmpty()) {
-            throw new IllegalStateException("Already registered for this lecture.");
+        if (isRegistered.isPresent()) {
+            throw new LectureAlreadyRegisteredException();
         }
     }
 
