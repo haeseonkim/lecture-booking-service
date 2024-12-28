@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT l FROM Lecture l WHERE l.lectureId = :lectureId")
-    Optional<Lecture> findByIdWithPessimisticLock(@Param("lectureId") Long lectureId);
+    Optional<Lecture> findByIdWithLock(@Param("lectureId") Long lectureId);
 
     List<Lecture> findByStartDateTimeAndCurrentEnrollmentLessThan(LocalDateTime startTime, int currentEnrollment);
 }

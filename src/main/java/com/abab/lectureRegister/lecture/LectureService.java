@@ -20,12 +20,12 @@ public class LectureService {
     }
 
     public Lecture getLectureByIdWithLock(Long lectureId) {
-        return lectureRepository.findByIdWithPessimisticLock(lectureId)
+        return lectureRepository.findByIdWithLock(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException(lectureId));
     }
 
     public void isPossibleToRegister(Lecture lecture) {
-        if(lecture.getCurrentEnrollment() >= 30){
+        if(lecture.getCurrentEnrollment() >= MAX_ENROLLMENT){
             throw new LectureFullException(lecture.getLectureId());
         }
     }
