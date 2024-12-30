@@ -1,7 +1,9 @@
-package com.abab.lectureRegister.lecture;
+package com.abab.lectureRegister.service;
 
-import com.abab.lectureRegister.exception.LectureFullException;
-import com.abab.lectureRegister.exception.LectureNotFoundException;
+import com.abab.lectureRegister.exception.custom.LectureFullException;
+import com.abab.lectureRegister.exception.custom.LectureNotFoundException;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.repository.LectureRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

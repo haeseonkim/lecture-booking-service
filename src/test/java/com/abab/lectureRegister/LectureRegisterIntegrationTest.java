@@ -1,7 +1,8 @@
 package com.abab.lectureRegister;
 
-import com.abab.lectureRegister.lecture.Lecture;
-import com.abab.lectureRegister.lecture.LectureRepository;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.repository.LectureRepository;
+import com.abab.lectureRegister.service.LectureRegisterServiceFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

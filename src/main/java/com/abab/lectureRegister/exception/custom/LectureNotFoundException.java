@@ -1,4 +1,4 @@
-package com.abab.lectureRegister.exception;
+package com.abab.lectureRegister.exception.custom;
 
 public class LectureNotFoundException extends RuntimeException {
     public LectureNotFoundException(Long lectureId) {

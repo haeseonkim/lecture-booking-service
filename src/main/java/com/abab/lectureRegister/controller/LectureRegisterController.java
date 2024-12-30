@@ -1,9 +1,10 @@
-package com.abab.lectureRegister;
+package com.abab.lectureRegister.controller;
 
-import com.abab.lectureRegister.lecture.Lecture;
-import com.abab.lectureRegister.lecture.LectureResponse;
-import com.abab.lectureRegister.registration.Registration;
-import com.abab.lectureRegister.registration.RegistrationResponse;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.dto.LectureResponse;
+import com.abab.lectureRegister.model.Registration;
+import com.abab.lectureRegister.dto.RegistrationResponse;
+import com.abab.lectureRegister.service.LectureRegisterServiceFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

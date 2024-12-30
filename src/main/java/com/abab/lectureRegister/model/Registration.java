@@ -1,6 +1,5 @@
-package com.abab.lectureRegister.registration;
+package com.abab.lectureRegister.model;
 
-import com.abab.lectureRegister.lecture.Lecture;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

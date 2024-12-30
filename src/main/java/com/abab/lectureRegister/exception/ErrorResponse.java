@@ -1,4 +1,4 @@
-package com.abab.lectureRegister;
+package com.abab.lectureRegister.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
