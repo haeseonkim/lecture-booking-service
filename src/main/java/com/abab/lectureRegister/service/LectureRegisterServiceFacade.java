@@ -2,9 +2,9 @@ package com.abab.lectureRegister.service;
 
 import com.abab.lectureRegister.model.Lecture;
 import com.abab.lectureRegister.model.Registration;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +15,7 @@ public class LectureRegisterServiceFacade {
     private final LectureService lectureService;
     private final RegistrationService registrationService;
 
+    @Transactional(readOnly = true)
     public List<Lecture> getLectures(LocalDateTime startDateTime){
         return lectureService.getAllLectures(startDateTime);
     }
@@ -32,6 +33,7 @@ public class LectureRegisterServiceFacade {
         return registration;
     }
 
+    @Transactional(readOnly = true)
     public List<Lecture> getRegisteredLectures(Long userId) {
         return registrationService.getRegisteredLectures(userId);
     }
