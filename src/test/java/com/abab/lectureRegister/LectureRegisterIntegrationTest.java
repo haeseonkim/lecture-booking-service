@@ -1,10 +1,11 @@
 package com.abab.lectureRegister;
 
-import com.abab.lectureRegister.exception.LectureAlreadyRegisteredException;
-import com.abab.lectureRegister.lecture.Lecture;
-import com.abab.lectureRegister.lecture.LectureRepository;
-import com.abab.lectureRegister.registration.Registration;
-import com.abab.lectureRegister.registration.RegistrationRepository;
+import com.abab.lectureRegister.exception.custom.LectureAlreadyRegisteredException;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.repository.LectureRepository;
+import com.abab.lectureRegister.model.Registration;
+import com.abab.lectureRegister.repository.RegistrationRepository;
+import com.abab.lectureRegister.service.LectureRegisterServiceFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

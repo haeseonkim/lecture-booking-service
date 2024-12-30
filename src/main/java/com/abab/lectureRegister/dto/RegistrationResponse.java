@@ -1,5 +1,6 @@
-package com.abab.lectureRegister.registration;
+package com.abab.lectureRegister.dto;
 
+import com.abab.lectureRegister.model.Registration;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

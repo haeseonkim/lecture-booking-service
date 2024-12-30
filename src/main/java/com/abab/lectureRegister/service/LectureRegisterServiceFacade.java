@@ -1,9 +1,7 @@
-package com.abab.lectureRegister;
+package com.abab.lectureRegister.service;
 
-import com.abab.lectureRegister.lecture.Lecture;
-import com.abab.lectureRegister.registration.Registration;
-import com.abab.lectureRegister.registration.RegistrationService;
-import com.abab.lectureRegister.lecture.LectureService;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.model.Registration;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

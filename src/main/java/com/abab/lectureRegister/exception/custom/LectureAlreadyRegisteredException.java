@@ -1,4 +1,4 @@
-package com.abab.lectureRegister.exception;
+package com.abab.lectureRegister.exception.custom;
 
 public class LectureAlreadyRegisteredException extends RuntimeException {
     public LectureAlreadyRegisteredException() {
