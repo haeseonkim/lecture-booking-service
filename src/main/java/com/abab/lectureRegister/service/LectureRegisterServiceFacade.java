@@ -1,5 +1,7 @@
 package com.abab.lectureRegister.service;
 
+import com.abab.lectureRegister.dto.LectureResponse;
+import com.abab.lectureRegister.dto.RegistrationResponse;
 import com.abab.lectureRegister.model.Lecture;
 import com.abab.lectureRegister.model.Registration;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +19,14 @@ public class LectureRegisterServiceFacade {
     private final RegistrationService registrationService;
 
     @Transactional(readOnly = true)
-    public List<Lecture> getLectures(LocalDateTime startDateTime){
-        return lectureService.getAllLectures(startDateTime);
+    public List<LectureResponse> getLectures(LocalDateTime startDateTime){
+        return lectureService.getAllLectures(startDateTime).stream()
+                .map(LectureResponse::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public Registration registerLecture(Long userId, Long lectureId) {
+    public RegistrationResponse registerLecture(Long userId, Long lectureId) {
         Lecture lecture = getLectureWithValidation(lectureId);
 
         checkRegistrationEligibility(userId, lecture);
@@ -29,12 +34,14 @@ public class LectureRegisterServiceFacade {
         Registration registration = registrationService.register(userId, lecture);
         lectureService.updateCurrentEnrollment(lecture);
 
-        return registration;
+        return new RegistrationResponse(registration);
     }
 
     @Transactional(readOnly = true)
-    public List<Lecture> getRegisteredLectures(Long userId) {
-        return registrationService.getRegisteredLectures(userId);
+    public List<LectureResponse> getRegisteredLectures(Long userId) {
+        return registrationService.getRegisteredLectures(userId).stream()
+                .map(LectureResponse::new)
+                .collect(Collectors.toList());
     }
 
     private Lecture getLectureWithValidation(Long lectureId) {
