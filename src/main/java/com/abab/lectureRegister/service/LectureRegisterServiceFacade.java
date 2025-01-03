@@ -22,10 +22,9 @@ public class LectureRegisterServiceFacade {
 
     @Transactional
     public Registration registerLecture(Long userId, Long lectureId) {
-        Lecture lecture = lectureService.getLectureByIdWithLock(lectureId);
+        Lecture lecture = getLectureWithValidation(lectureId);
 
-        lectureService.isPossibleToRegister(lecture);
-        registrationService.isNotRegisteredYet(userId, lecture);
+        checkRegistrationEligibility(userId, lecture);
 
         Registration registration = registrationService.register(userId, lecture);
         lectureService.updateCurrentEnrollment(lecture);
@@ -36,5 +35,15 @@ public class LectureRegisterServiceFacade {
     @Transactional(readOnly = true)
     public List<Lecture> getRegisteredLectures(Long userId) {
         return registrationService.getRegisteredLectures(userId);
+    }
+
+    private Lecture getLectureWithValidation(Long lectureId) {
+        Lecture lecture = lectureService.getLectureByIdWithLock(lectureId);
+        lectureService.isPossibleToRegister(lecture);
+        return lecture;
+    }
+
+    private void checkRegistrationEligibility(Long userId, Lecture lecture) {
+        registrationService.isNotRegisteredYet(userId, lecture);
     }
 }
