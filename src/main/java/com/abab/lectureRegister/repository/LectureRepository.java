@@ -1,5 +1,6 @@
-package com.abab.lectureRegister.lecture;
+package com.abab.lectureRegister.repository;
 
+import com.abab.lectureRegister.model.Lecture;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;

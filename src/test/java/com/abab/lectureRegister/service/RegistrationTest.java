@@ -1,7 +1,9 @@
-package com.abab.lectureRegister.registration;
+package com.abab.lectureRegister.service;
 
-import com.abab.lectureRegister.exception.LectureAlreadyRegisteredException;
-import com.abab.lectureRegister.lecture.Lecture;
+import com.abab.lectureRegister.exception.custom.LectureAlreadyRegisteredException;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.model.Registration;
+import com.abab.lectureRegister.repository.RegistrationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,4 +1,4 @@
-package com.abab.lectureRegister.lecture;
+package com.abab.lectureRegister.model;
 
 import jakarta.persistence.*;
 import lombok.*;

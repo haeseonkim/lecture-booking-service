@@ -1,7 +1,8 @@
 package com.abab.lectureRegister;
 
-import com.abab.lectureRegister.lecture.Lecture;
-import com.abab.lectureRegister.lecture.LectureRepository;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.repository.LectureRepository;
+import com.abab.lectureRegister.service.LectureRegisterServiceFacade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -53,15 +53,6 @@ public class LectureRegisterIntegrationTest {
         // given
         final int THREAD_COUNT = 40;
         final Long LECTURE_ID = 1L;
-
-        // 특강 데이터 미리 생성
-        Lecture lecture = Lecture.builder()
-                .lectureName("테스트 특강")
-                .startDateTime(LocalDateTime.now().plusDays(1))
-                .currentEnrollment(0)
-                .lecturer("강사")
-                .build();
-        lectureRepository.save(lecture);
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         CountDownLatch latch = new CountDownLatch(1);

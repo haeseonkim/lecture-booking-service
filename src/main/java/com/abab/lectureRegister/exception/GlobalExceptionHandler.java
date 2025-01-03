@@ -1,8 +1,8 @@
-package com.abab.lectureRegister;
+package com.abab.lectureRegister.exception;
 
-import com.abab.lectureRegister.exception.LectureAlreadyRegisteredException;
-import com.abab.lectureRegister.exception.LectureFullException;
-import com.abab.lectureRegister.exception.LectureNotFoundException;
+import com.abab.lectureRegister.exception.custom.LectureAlreadyRegisteredException;
+import com.abab.lectureRegister.exception.custom.LectureFullException;
+import com.abab.lectureRegister.exception.custom.LectureNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

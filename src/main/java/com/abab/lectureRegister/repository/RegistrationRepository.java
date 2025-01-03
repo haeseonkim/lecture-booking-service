@@ -1,6 +1,7 @@
-package com.abab.lectureRegister.registration;
+package com.abab.lectureRegister.repository;
 
-import com.abab.lectureRegister.lecture.Lecture;
+import com.abab.lectureRegister.model.Lecture;
+import com.abab.lectureRegister.model.Registration;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
