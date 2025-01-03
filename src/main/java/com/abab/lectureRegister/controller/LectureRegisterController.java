@@ -5,6 +5,7 @@ import com.abab.lectureRegister.model.Lecture;
 import com.abab.lectureRegister.dto.LectureResponse;
 import com.abab.lectureRegister.model.Registration;
 import com.abab.lectureRegister.dto.RegistrationResponse;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
